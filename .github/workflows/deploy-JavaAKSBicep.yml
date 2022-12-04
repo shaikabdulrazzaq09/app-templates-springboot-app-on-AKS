@@ -48,6 +48,7 @@ jobs:
        with:
         inlineScript: |
           #!/bin/bash
+          az role assignment create --scope '/' --role 'Owner' --assignee-object-id $(az ad signed-in-user show --query id --output tsv) --assignee-principal-type User
           az deployment sub create --template-file ./infra/aks-bicep/main.bicep --parameters ./infra/aks-bicep/parameters.json --location eastus
           az postgres server create --resource-group petclinicaks-rg  --name petclinicaks-db  --location eastus --admin-user petclinicaksadmin --admin-password petclinicAKS123** --sku-name GP_Gen5_2
 
